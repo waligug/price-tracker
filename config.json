@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "id": "msi-rtx4060ti-ventus",
+      "name": "MSI GeForce RTX 4060 Ti VENTUS 2X BLACK 8G OC",
+      "url": "https://www.memoryexpress.com/Products/MX00125780",
+      "selector": ".GrandTotal",
+      "site": "memoryexpress"
+    }
+  ]
+}
