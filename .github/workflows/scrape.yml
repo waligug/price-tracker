@@ -2,8 +2,8 @@ name: Scrape Prices
 
 on:
   schedule:
-    - cron: '0 */12 * * *'  # Every 12 hours
-  workflow_dispatch:          # Manual trigger
+    - cron: '0 14,2 * * *'  # 8 AM and 8 PM MST (UTC-6)
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -14,20 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-          cache: 'npm'
+          python-version: '3.11'
+          cache: 'pip'
 
-      - run: npm ci
+      - run: pip install -r requirements.txt
 
-      - name: Run scraper
-        run: node scraper.js
+      - name: Install Playwright browsers
+        run: playwright install chromium --with-deps
 
-      - name: Commit price data
+      - name: Run scraper (skip Cloudflare-protected stores)
+        run: python tracker.py --skip-cloudflare --no-push
+
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          git diff --staged --quiet || git commit -m "Update price data $(date -u +%Y-%m-%d)"
+          git add data/ charts/ README.md
+          git diff --staged --quiet || git commit -m "Update prices $(date -u +%Y-%m-%d)"
+          git pull --rebase
           git push

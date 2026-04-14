@@ -1,0 +1,33 @@
+name: Add Product
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Product URL (e.g. https://www.memoryexpress.com/Products/MX00125780)'
+        required: true
+        type: string
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add URL to pending queue
+        run: |
+          mkdir -p data
+          echo "${{ inputs.url }}" >> data/pending.txt
+          echo "Added to pending queue: ${{ inputs.url }}"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/pending.txt
+          git diff --staged --quiet || git commit -m "Queue product: ${{ inputs.url }}"
+          git pull --rebase
+          git push
