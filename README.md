@@ -1,12 +1,12 @@
 # Price Tracker
 
-Last updated: 2026-04-17 20:00
+Last updated: 2026-04-19 08:00
 
 ## Current Prices
 
 | Product | Store | Current | 7d Change | All-Time Low |
 |---------|-------|---------|-----------|--------------|
-| [MSI GeForce RTX 4060 Ti VENTUS 2X BLACK 8G OC](https://www.memoryexpress.com/Products/MX00125780) | memoryexpress | $469.99 | — | $469.99 |
+| [MSI GeForce RTX 4060 Ti VENTUS 2X BLACK 8G OC](https://www.memoryexpress.com/Products/MX00125780) | memoryexpress | $469.99 | +0.0% | $469.99 |
 
 ## Price History
 
